@@ -7,13 +7,18 @@ import {
   Logo,
   ProfileIcon
 } from '@zlden/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
-export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
+export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
+  const location = useLocation();
+  
+  const isConstructorActive = (isActive: boolean) => isActive || location.pathname.startsWith('/ingredients/');
+
+  return (
   <header className={styles.header}>
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
-        <NavLink to={'/'} className={({isActive}) => `${styles.link} ${isActive ? styles.link_active : ''}`}>
+        <NavLink to={'/'} className={({isActive}) => `${styles.link} ${isConstructorActive(isActive) ? styles.link_active : ''}`}>
           <BurgerIcon type={'primary'} />
           <p className='text text_type_main-default ml-2 mr-10'>Конструктор</p>
         </NavLink>
@@ -36,3 +41,4 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
     </nav>
   </header>
 );
+}

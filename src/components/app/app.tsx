@@ -13,10 +13,9 @@ import '../../index.css';
 import styles from './app.module.css';
 import {
   Route,
-  createRoutesFromElements,
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
+  useLocation,
+  useNavigate,
+  Routes,
 } from 'react-router-dom';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
@@ -27,48 +26,39 @@ import { fetchIngredients } from '../../slices/ingredientsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state?.background;
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
+
+  const closeModal = () => {
+    navigate(-1);
+  }
   
   return (
   <div className={styles.app}>
     <AppHeader />
-    <Outlet />
-  </div>
-);
-}
+    
+    <Routes location={background || location}>
+      <Route path='/' element={<ConstructorPage />} />
 
-// const TestPage = () => (
-//   <div style={{ color: 'red', fontSize: '24px' }}>
-//     Test Page - Routing Works!
-//   </div>
-// );
-
-// const closeModal = () => {
-//   navigate(-1);
-// }
-
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route index element={<ConstructorPage />} />
-
-      <Route path='feed'>
+      <Route path='/feed'>
         <Route index element={<Feed />} />
         <Route
           path=':number'
           element={
-            <Modal title='' onClose={() => window.history.back()}>
-              <OrderInfo />
-            </Modal>
-          }
+          <div className={styles.detailPageWrap}>
+            <h1 className={`${styles.detailHeader} text text_type_main-large`}>Детали заказа</h1>
+            <OrderInfo />
+          </div>}
         />
       </Route>
 
       <Route
-        path='login'
+        path='/login'
         element={
           <ProtectedRoute>
             <Login />
@@ -76,7 +66,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path='register'
+        path='/register'
         element={
           <ProtectedRoute>
             <Register />
@@ -84,7 +74,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path='forgot-password'
+        path='/forgot-password'
         element={
           <ProtectedRoute>
             <ForgotPassword />
@@ -92,7 +82,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path='reset-password'
+        path='/reset-password'
         element={
           <ProtectedRoute>
             <ResetPassword />
@@ -100,7 +90,7 @@ export const router = createBrowserRouter(
         }
       />
 
-      <Route path='profile'>
+      <Route path='/profile'>
         <Route
           index
           element={
@@ -121,26 +111,56 @@ export const router = createBrowserRouter(
           path='orders/:number'
           element={
             <ProtectedRoute>
-              <Modal title='' onClose={() => window.history.back()}>
-                <OrderInfo />
-              </Modal>
+                <div className={styles.detailPageWrap}>
+                  <h1 className={`${styles.detailHeader} text text_type_main-large`}>Детали заказа</h1>
+                  <OrderInfo />
+                </div>
             </ProtectedRoute>
           }
         />
       </Route>
 
       <Route
-        path='ingredients/:id'
+        path='/ingredients/:id'
         element={
-          <Modal title='Детали ингредиента' onClose={() => window.history.back()}>
+          <div className={styles.detailPageWrap}>
+            <h1 className={`${styles.detailHeader} text text_type_main-large`}>Детали ингредиента</h1>
             <IngredientDetails />
-          </Modal>
+          </div>
         }
       />
 
       <Route path='*' element={<NotFound404 />} />
-    </Route>
-  )
+    </Routes>
+
+    {background && 
+      <Routes>
+        <Route path='/ingredients/:id'
+          element={
+            <Modal title='Детали ингредиента' onClose={closeModal}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route path='/feed/:number'
+          element={
+            <Modal title='' onClose={closeModal}>
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route path='/profile/orders/:number'
+          element={
+            <Modal title='' onClose={closeModal}>
+              <OrderInfo />
+            </Modal>
+          }
+        />
+      </Routes>
+    }
+
+  </div>
 );
+}
 
 export default App;
