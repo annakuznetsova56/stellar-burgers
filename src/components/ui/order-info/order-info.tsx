@@ -9,9 +9,15 @@ import styles from './order-info.module.css';
 import { OrderInfoUIProps } from './type';
 import { OrderStatus } from '@components';
 
-export const OrderInfoUI: FC<OrderInfoUIProps> = memo(({ orderInfo }) => (
+export const OrderInfoUI: FC<OrderInfoUIProps> = memo(({ orderInfo }) => {
+  console.log('OrderInfo:', orderInfo);
+
+  return (
   <div className={styles.wrap}>
-    <h3 className={`text text_type_main-medium  pb-3 pt-10 ${styles.header}`}>
+    <h3 className={`text text_type_digits-default ${styles.header}`}>
+      #{orderInfo.number && orderInfo.number.toString().padStart(6, '0')}
+    </h3>
+    <h3 className={`text text_type_main-medium  pb-3 pt-3 ${styles.header}`}>
       {orderInfo.name}
     </h3>
     <OrderStatus status={orderInfo.status} />
@@ -48,4 +54,4 @@ export const OrderInfoUI: FC<OrderInfoUIProps> = memo(({ orderInfo }) => (
       <CurrencyIcon type={'primary'} />
     </div>
   </div>
-));
+)});
