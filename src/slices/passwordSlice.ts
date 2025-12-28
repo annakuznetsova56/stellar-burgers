@@ -33,7 +33,7 @@ export const passwordSlice = createSlice({
   name: 'password',
   initialState,
   reducers: {
-    setPassword: (state, action: PayloadAction<string>) => {
+    setNewPassword: (state, action: PayloadAction<string>) => {
         state.password = action.payload;
     }
   },
@@ -69,7 +69,7 @@ export const passwordSlice = createSlice({
 
 export const passwordReducer = passwordSlice.reducer;
 
-export const { setPassword } = passwordSlice.actions;
+export const { setNewPassword } = passwordSlice.actions;
 
 export const selectPassword = (state: { password: TPasswordState }) => 
   state.password.password;

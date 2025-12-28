@@ -1,13 +1,14 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchUser, selectUser, updateUser } from '../../slices/userSlice';
+import { selectUser, updateUser } from '../../slices/userSlice';
 import { Navigate } from 'react-router-dom';
-import { setPassword } from '../../slices/passwordSlice';
+import { selectPassword, setNewPassword } from '../../slices/passwordSlice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const password = useSelector(selectPassword);
 
   if(!user) {
     return <Navigate replace to='/login'/>;
@@ -16,7 +17,7 @@ export const Profile: FC = () => {
   const [formValue, setFormValue] = useState({
     name: user.name,
     email: user.email,
-    password: ''
+    password: password
   });
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const Profile: FC = () => {
       ...prevState,
       name: user?.name || '',
       email: user?.email || '',
-      password: ''
+      password: password
     }));
   }, [user]);
 
@@ -35,7 +36,7 @@ export const Profile: FC = () => {
   const isFormChanged =
     formValue.name !== user?.name ||
     formValue.email !== user?.email ||
-    !!formValue.password;
+    formValue.password !== password;
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -50,10 +51,8 @@ export const Profile: FC = () => {
     }
 
     if(!!formValue.password) {
-      dispatch(setPassword(formValue.password));
+      dispatch(setNewPassword(formValue.password));
     }
-
-
   };
 
   const handleCancel = (e: SyntheticEvent) => {
