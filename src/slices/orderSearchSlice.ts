@@ -1,4 +1,3 @@
-// slices/orderDetailsSlice.ts
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getOrderByNumberApi } from '@api';
 import { TOrder } from '@utils-types';

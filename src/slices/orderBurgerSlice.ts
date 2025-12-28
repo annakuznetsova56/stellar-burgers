@@ -7,14 +7,14 @@ type TBurgerState = {
     name: string,
     burger: TOrder | null;
     loading: boolean;
-    error: string | null;
+    error: string;
 }
 
 const initialState: TBurgerState = {
     name: '',
     burger: null,
     loading: false,
-    error: null
+    error: ''
 }
 
 export const fetchNewOrder = createAsyncThunk(
@@ -29,12 +29,17 @@ const orderBurgerSlice = createSlice({
   name: 'orderBurger',
   initialState,
   reducers: {
+    clearOrder: (state) => {
+      state.burger = null;
+      state.loading = false;
+      state.error = '';
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNewOrder.pending, (state) => {
         state.loading = true;
-        state.error = null;
+        state.error = '';
       })
       .addCase(fetchNewOrder.fulfilled, (state, action) => {
         state.loading = false;
@@ -49,6 +54,7 @@ const orderBurgerSlice = createSlice({
 });
 
 export const orderBurgerReducer = orderBurgerSlice.reducer;
+export const { clearOrder } = orderBurgerSlice.actions;
 
 export const selectOrderName = (state: { order: TBurgerState }) => 
   state.order.name;

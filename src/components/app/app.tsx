@@ -23,6 +23,7 @@ import { ProtectedRoute } from '../../../src/utils/protectedRoute';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../slices/ingredientsSlice';
+import { fetchUser } from '../../slices/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   const closeModal = () => {
@@ -60,7 +62,7 @@ const App = () => {
       <Route
         path='/login'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute onlyAuth={false}>
             <Login />
           </ProtectedRoute>
         }
@@ -68,7 +70,7 @@ const App = () => {
       <Route
         path='/register'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute onlyAuth={false}>
             <Register />
           </ProtectedRoute>
         }
@@ -76,7 +78,7 @@ const App = () => {
       <Route
         path='/forgot-password'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute onlyAuth={false}>
             <ForgotPassword />
           </ProtectedRoute>
         }
@@ -84,7 +86,7 @@ const App = () => {
       <Route
         path='/reset-password'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute onlyAuth={false}>
             <ResetPassword />
           </ProtectedRoute>
         }
@@ -94,7 +96,7 @@ const App = () => {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyAuth>
               <Profile />
             </ProtectedRoute>
           }
@@ -102,7 +104,7 @@ const App = () => {
         <Route
           path='orders'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyAuth>
               <ProfileOrders />
             </ProtectedRoute>
           }
@@ -110,7 +112,7 @@ const App = () => {
         <Route
           path='orders/:number'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyAuth>
                 <div className={styles.detailPageWrap}>
                   <h1 className={`${styles.detailHeader} text text_type_main-large`}>Детали заказа</h1>
                   <OrderInfo />

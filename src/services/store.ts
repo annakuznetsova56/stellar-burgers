@@ -11,6 +11,8 @@ import { ordersReducer } from '../slices/ordersSlice';
 import { orderBurgerReducer } from '../slices/orderBurgerSlice';
 import { orderSearchReducer } from '../slices/orderSearchSlice';
 import { constructorReducer } from '../slices/constructorSlice';
+import { userReducer } from '../slices/userSlice';
+import { passwordReducer } from '../slices/passwordSlice';
 
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
     order: orderBurgerReducer,
     orderSearch: orderSearchReducer,
     constructorr: constructorReducer,
+    user: userReducer,
+    password: passwordReducer
 });
 
 

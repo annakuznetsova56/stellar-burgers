@@ -2,20 +2,46 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector } from 'react-redux';
-import { selectConstructorItems } from '../../slices/constructorSlice';
-import { selectOrderModalData, selectOrderRequest } from '../../slices/orderBurgerSlice';
+import { clearConstructor, selectConstructorItems } from '../../slices/constructorSlice';
+import { clearOrder, fetchNewOrder, selectOrderModalData, selectOrderRequest } from '../../slices/orderBurgerSlice';
+import { useDispatch } from '../../services/store';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { selectIsAuthenticated } from '../../slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(selectConstructorItems);
-
   const orderRequest = useSelector(selectOrderRequest);
-
   const orderModalData = useSelector(selectOrderModalData);
+  const isAuth = useSelector(selectIsAuthenticated);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if(isAuth) {
+      const newOrder: string[] = [];
+
+      newOrder.push(constructorItems.bun._id);
+      constructorItems.ingredients.map((ing) => {
+        newOrder.push(ing._id);
+      });
+      newOrder.push(constructorItems.bun._id);
+      
+
+      dispatch(fetchNewOrder(newOrder));
+    } else {
+      navigate('/login');
+    }
+
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => {
+    dispatch(clearOrder());
+    dispatch(clearConstructor());
+  };
 
   const price = useMemo(
     () => 
