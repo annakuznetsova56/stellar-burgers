@@ -34,12 +34,6 @@ export const BurgerIngredients: FC = () => {
   });
 
   useEffect(() => {
-    if (ingredients.length === 0 && !loading) {
-      dispatch(fetchIngredients());
-    }
-  }, [dispatch, ingredients.length, loading]);
-
-  useEffect(() => {
     if (inViewBuns) {
       setCurrentTab('bun');
     } else if (inViewSauces) {

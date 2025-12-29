@@ -19,12 +19,8 @@ const constructorSlice = createSlice({
       state.bun = action.payload;
     },
 
-    addIngredient: (state, action: PayloadAction<TIngredient>) => {
-      const newIngredient: TConstructorIngredient = {
-        ...action.payload,
-        id: `${action.payload._id}-${Date.now()}`
-      };
-      state.ingredients.push(newIngredient);
+    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
+      state.ingredients.push(action.payload);
     },
 
     removeIngredient: (state, action: PayloadAction<string>) => {

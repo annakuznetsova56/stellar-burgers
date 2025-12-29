@@ -15,7 +15,11 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
       if(ingredient.type === 'bun') {
         dispatch(addBun(ingredient));
       } else {
-        dispatch(addIngredient(ingredient));
+        const ingredientWithId = {
+          ...ingredient,
+          id: `${ingredient._id}-${Date.now()}`
+        };
+        dispatch(addIngredient(ingredientWithId));
       }
     }
 

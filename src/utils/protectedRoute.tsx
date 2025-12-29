@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from '../services/store';
 import { Preloader } from '@ui';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCookie } from './cookie';
 
 type ProtectedRouteProps = {
   children: React.ReactElement;

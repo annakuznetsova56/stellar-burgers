@@ -23,6 +23,10 @@ export const registerUser = createAsyncThunk(
   'user/register',
   async (userData: TRegisterData) => {
     const response = await registerUserApi(userData);
+
+    localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
+
     return response; 
   }
 );
@@ -31,6 +35,10 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async (userData: TLoginData) => {
     const response = await loginUserApi(userData);
+
+    localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
+
     return response; 
   }
 );
@@ -55,6 +63,10 @@ export const logoutUser = createAsyncThunk(
   'user/logout',
   async () => {
     const response = await logoutApi();
+
+    localStorage.removeItem('refreshToken');
+    deleteCookie('accessToken');
+
     return response; 
   }
 );
@@ -78,9 +90,6 @@ export const userSlice = createSlice({
           state.isAuthenticated = false;
         })
        .addCase(loginUser.fulfilled, (state, action) => {
-          localStorage.setItem('refreshToken', action.payload.refreshToken);
-          setCookie('accessToken', action.payload.accessToken);
-
           state.user = action.payload.user;
           state.loading = false;
           state.isAuthenticated = true;
@@ -98,9 +107,6 @@ export const userSlice = createSlice({
           state.isAuthenticated = false;
         })
        .addCase(registerUser.fulfilled, (state, action) => {
-          localStorage.setItem('refreshToken', action.payload.refreshToken);
-          setCookie('accessToken', action.payload.accessToken);
-
           state.user = action.payload.user;
           state.loading = false;
           state.isAuthenticated = true;
@@ -150,8 +156,6 @@ export const userSlice = createSlice({
         })
        .addCase(logoutUser.fulfilled, (state, action) => {
         if(action.payload.success === true) {
-          localStorage.removeItem('refreshToken');
-          deleteCookie('accessToken');
           state.user = null;
           state.isAuthenticated = false;
           state.isAuthChecked = true;
