@@ -11,13 +11,6 @@ export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
   const ingredientData = useSelector(selectCurrentIngredient);
   const ingredients = useSelector(selectIngredients);
-  const isLoading = useSelector(selectIngredientsLoading);
-
-  useEffect(() => {
-    if (!isLoading && (!ingredients || ingredients.length === 0)) {
-      dispatch(fetchIngredients());
-    }
-  }, [dispatch, isLoading, ingredients]); 
 
   useEffect(() => {
     if (id && ingredients && ingredients.length > 0) {
