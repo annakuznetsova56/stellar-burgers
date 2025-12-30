@@ -3,7 +3,7 @@ import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchIngredients, getIngredientById, selectCurrentIngredient, selectIngredients, selectIngredientsLoading } from '../../slices/ingredientsSlice';
+import { getIngredientById, selectCurrentIngredient, selectIngredients } from '../../slices/ingredientsSlice';
 
 export const IngredientDetails: FC = () => {
   const dispatch = useDispatch();
