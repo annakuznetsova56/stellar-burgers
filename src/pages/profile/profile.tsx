@@ -1,34 +1,58 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
+import { selectUser, updateUser } from '../../slices/userSlice';
+import { Navigate } from 'react-router-dom';
+import { selectPassword, setNewPassword } from '../../slices/passwordSlice';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const password = useSelector(selectPassword);
+
+  if(!user) {
+    return <Navigate replace to='/login'/>;
+  }
 
   const [formValue, setFormValue] = useState({
     name: user.name,
     email: user.email,
-    password: ''
+    password: password
   });
 
   useEffect(() => {
     setFormValue((prevState) => ({
       ...prevState,
       name: user?.name || '',
-      email: user?.email || ''
+      email: user?.email || '',
+      password: password
     }));
   }, [user]);
+
+  useEffect(() => {
+  
+  }, [dispatch]);
 
   const isFormChanged =
     formValue.name !== user?.name ||
     formValue.email !== user?.email ||
-    !!formValue.password;
+    formValue.password !== password;
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if(formValue.name !== user?.name ||
+    formValue.email !== user?.email) {
+      const newValue = {
+      name: formValue.name,
+      email: formValue.email
+    }
+    dispatch(updateUser(newValue));
+    }
+
+    if(!!formValue.password) {
+      dispatch(setNewPassword(formValue.password));
+    }
   };
 
   const handleCancel = (e: SyntheticEvent) => {
