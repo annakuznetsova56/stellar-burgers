@@ -3,9 +3,9 @@ import { FC, memo, useEffect } from 'react';
 import { OrdersListProps } from './type';
 import { OrdersListUI, Preloader } from '@ui';
 import { useSelector } from 'react-redux';
-import { selectIngredients } from '../../slices/ingredientsSlice';
+import { selectIngredients } from '../../slices/ingredientsSlice/ingredientsSlice';
 import { useDispatch } from '../../services/store';
-import { fetchOrders } from '../../slices/ordersSlice';
+import { fetchOrders } from '../../slices/ordersSlice/ordersSlice';
 
 export const OrdersList: FC<OrdersListProps> = memo(({ orders }) => {
   const orderByDate = [...orders].sort(

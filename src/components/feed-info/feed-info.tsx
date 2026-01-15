@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 import { useSelector } from 'react-redux';
-import { fetchFeed, selectFeed, selectFeedLoading, selectFeedOrders } from '../../slices/feedSlice';
+import { fetchFeed, selectFeed, selectFeedLoading, selectFeedOrders } from '../../slices/feedSlice/feedSlice';
 import { useDispatch } from '../../services/store';
 
 const getOrders = (orders: TOrder[], status: string): number[] =>

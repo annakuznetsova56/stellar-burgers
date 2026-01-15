@@ -1,9 +1,9 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { selectUser, updateUser } from '../../slices/userSlice';
+import { selectUser, updateUser } from '../../slices/userSlice/userSlice';
 import { Navigate } from 'react-router-dom';
-import { selectPassword, setNewPassword } from '../../slices/passwordSlice';
+import { selectPassword, setNewPassword } from '../../slices/passwordSlice/passwordSlice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();

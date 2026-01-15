@@ -2,11 +2,11 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector } from 'react-redux';
-import { clearConstructor, selectConstructorItems } from '../../slices/constructorSlice';
-import { clearOrder, fetchNewOrder, selectOrderError, selectOrderModalData, selectOrderRequest } from '../../slices/orderBurgerSlice';
+import { clearConstructor, selectConstructorItems } from '../../slices/constructorSlice/constructorSlice';
+import { clearOrder, fetchNewOrder, selectOrderError, selectOrderModalData, selectOrderRequest } from '../../slices/orderBurgerSlice/orderBurgerSlice';
 import { useDispatch } from '../../services/store';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { selectIsAuthenticated } from '../../slices/userSlice';
+import { selectIsAuthenticated } from '../../slices/userSlice/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(selectConstructorItems);

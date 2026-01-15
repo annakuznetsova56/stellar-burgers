@@ -1,7 +1,7 @@
 import { getUserApi, loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData, updateUserApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TUser } from "@utils-types";
-import { deleteCookie, setCookie } from "../utils/cookie";
+import { deleteCookie, setCookie } from "../../utils/cookie";
 
 type TUserState = {
     isAuthChecked: boolean; 
@@ -137,11 +137,15 @@ export const userSlice = createSlice({
         .addCase(updateUser.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message || 'Ошибка обновления пользователя';
+          state.isAuthenticated = true;
+          state.isAuthChecked = true;
         })
        .addCase(updateUser.fulfilled, (state, action) => {
           state.user = action.payload.user;
           state.loading = false;
           state.error = '';
+          state.isAuthenticated = true;
+          state.isAuthChecked = true;
         })
 
         .addCase(logoutUser.pending, (state) => {
@@ -152,7 +156,7 @@ export const userSlice = createSlice({
           state.loading = false;
           state.error = action.error.message || 'Ошибка выхода';
           state.isAuthChecked = true;
-          state.isAuthenticated = false;
+          state.isAuthenticated = true;
         })
        .addCase(logoutUser.fulfilled, (state, action) => {
         if(action.payload.success === true) {

@@ -22,8 +22,8 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../../../src/utils/protectedRoute';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { fetchIngredients } from '../../slices/ingredientsSlice';
-import { fetchUser } from '../../slices/userSlice';
+import { fetchIngredients } from '../../slices/ingredientsSlice/ingredientsSlice';
+import { fetchUser } from '../../slices/userSlice/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
