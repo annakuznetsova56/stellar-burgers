@@ -3,10 +3,10 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector } from 'react-redux';
-import { selectIngredients } from '../../slices/ingredientsSlice';
+import { selectIngredients } from '../../slices/ingredientsSlice/ingredientsSlice';
 import { useDispatch } from '../../services/store';
 import { useParams } from 'react-router-dom';
-import { fetchOrderByNumber, selectOrderSearch } from '../../slices/orderSearchSlice';
+import { fetchOrderByNumber, selectOrderSearch } from '../../slices/orderSearchSlice/orderSearchSlice';
 
 export const OrderInfo: FC = () => {
     const dispatch = useDispatch();

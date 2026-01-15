@@ -47,7 +47,7 @@ export const passwordSlice = createSlice({
           state.loading = false;
           state.error = action.error.message || 'Ошибка восстановления пароля';
         })
-       .addCase(forgotPassword.fulfilled, (state, action) => {
+       .addCase(forgotPassword.fulfilled, (state) => {
           state.password = '';
           state.loading = false;
         })
@@ -60,7 +60,7 @@ export const passwordSlice = createSlice({
           state.loading = false;
           state.error = action.error.message || 'Ошибка смены пароля';
         })
-       .addCase(resetPassword.fulfilled, (state, action) => {
+       .addCase(resetPassword.fulfilled, (state) => {
           state.password = '';
           state.loading = false;
         })

@@ -5,16 +5,16 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { ingredientsReducer } from '../slices/ingredientsSlice';
-import { feedReducer } from '../slices/feedSlice';
-import { ordersReducer } from '../slices/ordersSlice';
-import { orderBurgerReducer } from '../slices/orderBurgerSlice';
-import { orderSearchReducer } from '../slices/orderSearchSlice';
-import { constructorReducer } from '../slices/constructorSlice';
-import { userReducer } from '../slices/userSlice';
-import { passwordReducer } from '../slices/passwordSlice';
+import { ingredientsReducer } from '../slices/ingredientsSlice/ingredientsSlice';
+import { feedReducer } from '../slices/feedSlice/feedSlice';
+import { ordersReducer } from '../slices/ordersSlice/ordersSlice';
+import { orderBurgerReducer } from '../slices/orderBurgerSlice/orderBurgerSlice';
+import { orderSearchReducer } from '../slices/orderSearchSlice/orderSearchSlice';
+import { constructorReducer } from '../slices/constructorSlice/constructorSlice';
+import { userReducer } from '../slices/userSlice/userSlice';
+import { passwordReducer } from '../slices/passwordSlice/passwordSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     feed: feedReducer,
     orders: ordersReducer,

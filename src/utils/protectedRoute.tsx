@@ -1,4 +1,4 @@
-import { fetchUser, loginUser, selectIsAuthChecked, selectUser, selectUserRequest } from '../slices/userSlice';
+import { fetchUser, loginUser, selectIsAuthChecked, selectUser, selectUserRequest } from '../slices/userSlice/userSlice';
 import { useDispatch, useSelector } from '../services/store';
 import { Preloader } from '@ui';
 import { Navigate, useLocation } from 'react-router-dom';
