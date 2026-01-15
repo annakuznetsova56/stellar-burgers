@@ -1,14 +1,15 @@
 import { feedReducer, fetchFeed } from "./feedSlice";
 
 describe('проверка feedReducer', () => {
+    const initialFeedState = {
+        orders: [],
+        total: 0,
+        totalToday: 0,
+        loading: false,
+        error: null
+    };
+
     it('при вызове экшена Request loading становится true', () => {
-        const initialFeedState = {
-            orders: [],
-            total: 0,
-            totalToday: 0,
-            loading: false,
-            error: null
-        };
         const requestAction = { type: fetchFeed.pending.type };
         const newState = feedReducer(initialFeedState, requestAction);
 
@@ -16,13 +17,6 @@ describe('проверка feedReducer', () => {
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialFeedState = {
-            orders: [],
-            total: 0,
-            totalToday: 0,
-            loading: true,
-            error: null
-        };
         const mockPayload = {
             "orders": [{
                 "ingredients": [],
@@ -53,13 +47,6 @@ describe('проверка feedReducer', () => {
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialFeedState = {
-            orders: [],
-            total: 0,
-            totalToday: 0,
-            loading: true,
-            error: null
-        };
         const failedAction = { type: fetchFeed.rejected.type, error: {message: 'Ошибка загрузки ленты'} };
         const newState = feedReducer(initialFeedState, failedAction);
 

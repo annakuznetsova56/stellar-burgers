@@ -1,13 +1,13 @@
 import { forgotPassword, passwordReducer, resetPassword } from "./passwordSlice";
 
+const initialPasswordState = {
+    password: 'qwerty123',
+    error: '',
+    loading: true
+};
 
 describe('проверка passwordReducer, async экшена forgotPassword', () => {
     it('при вызове экшена Request loading становится true', () => {
-        const initialPasswordState = {
-            password: '',
-            error: '',
-            loading: false
-        };
         const requestAction = { type: forgotPassword.pending.type };
         const newState = passwordReducer(initialPasswordState, requestAction);
 
@@ -15,11 +15,6 @@ describe('проверка passwordReducer, async экшена forgotPassword', 
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialPasswordState = {
-            password: 'qwerty123',
-            error: '',
-            loading: true
-        };
         const successAction = { type: forgotPassword.fulfilled.type };
         const newState = passwordReducer(initialPasswordState, successAction);
 
@@ -28,11 +23,6 @@ describe('проверка passwordReducer, async экшена forgotPassword', 
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialPasswordState = {
-            password: 'qwerty123',
-            error: '',
-            loading: true
-        };
         const failedAction = { type: forgotPassword.rejected.type, error: {message: 'Ошибка сброса пароля'} };
         const newState = passwordReducer(initialPasswordState, failedAction);
 
@@ -43,11 +33,6 @@ describe('проверка passwordReducer, async экшена forgotPassword', 
 
 describe('проверка passwordReducer, async экшена resetPassword', () => {
     it('при вызове экшена Request loading становится true', () => {
-        const initialPasswordState = {
-            password: '',
-            error: '',
-            loading: false
-        };
         const requestAction = { type: resetPassword.pending.type };
         const newState = passwordReducer(initialPasswordState, requestAction);
 
@@ -55,11 +40,6 @@ describe('проверка passwordReducer, async экшена resetPassword', (
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialPasswordState = {
-            password: 'qwerty123',
-            error: '',
-            loading: true
-        };
         const successAction = { type: resetPassword.fulfilled.type };
         const newState = passwordReducer(initialPasswordState, successAction);
 
@@ -68,11 +48,6 @@ describe('проверка passwordReducer, async экшена resetPassword', (
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialPasswordState = {
-            password: 'qwerty123',
-            error: '',
-            loading: true
-        };
         const failedAction = { type: resetPassword.rejected.type, error: {message: 'Ошибка восстановления пароля'} };
         const newState = passwordReducer(initialPasswordState, failedAction);
 

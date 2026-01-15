@@ -1,12 +1,13 @@
 import { fetchOrderByNumber, orderSearchReducer } from "./orderSearchSlice";
 
 describe('проверка orderSearchReducer', () => {
+    const initialSearchState = {
+        orders: [],
+        loading: false,
+        error: null
+    };
+
     it('при вызове экшена Request loading становится true', () => {
-        const initialSearchState = {
-            orders: [],
-            loading: false,
-            error: null
-        };
         const requestAction = { type: fetchOrderByNumber.pending.type };
         const newState = orderSearchReducer(initialSearchState, requestAction);
 
@@ -14,11 +15,6 @@ describe('проверка orderSearchReducer', () => {
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialSearchState = {
-            orders: [],
-            loading: true,
-            error: null
-        };
         const expectedResult = {
             orders: [{
             "ingredients": [],
@@ -44,11 +40,6 @@ describe('проверка orderSearchReducer', () => {
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialSearchState = {
-            orders: [],
-            loading: true,
-            error: null
-        };
         const failedAction = { type: fetchOrderByNumber.rejected.type, error: {message: 'Ошибка загрузки поиска'} };
         const newState = orderSearchReducer(initialSearchState, failedAction);
 

@@ -1,12 +1,13 @@
 import { fetchOrders, ordersReducer } from "./ordersSlice";
 
 describe('проверка ordersReducer', () => {
+    const initialOrdersState = {
+        orders: [],
+        loading: false,
+        error: null
+    };
+
     it('при вызове экшена Request loading становится true', () => {
-        const initialOrdersState = {
-            orders: [],
-            loading: false,
-            error: null
-        };
         const requestAction = { type: fetchOrders.pending.type };
         const newState = ordersReducer(initialOrdersState, requestAction);
 
@@ -14,11 +15,6 @@ describe('проверка ordersReducer', () => {
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialOrdersState = {
-            orders: [],
-            loading: false,
-            error: null
-        };
         const mockPayload = [{
             "name": "Spicy краторный бургер",
             "order": {
@@ -46,11 +42,6 @@ describe('проверка ordersReducer', () => {
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialOrdersState = {
-            orders: [],
-            loading: false,
-            error: null
-        };
         const failedAction = { type: fetchOrders.rejected.type, error: {message: 'Ошибка загрузки заказов'} };
         const newState = ordersReducer(initialOrdersState, failedAction);
 

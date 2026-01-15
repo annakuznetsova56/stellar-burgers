@@ -1,16 +1,17 @@
 import { fetchIngredients, ingredientsReducer } from "./ingredientsSlice";
 
 describe('проверка ingredientsReducer', () => {
+    const initialIngredientsState = {
+        ingredients: [],
+        buns: [],
+        mains: [],
+        sauces: [],
+        currentIngredient: null,
+        loading: false,
+        error: null
+    };
+
     it('при вызове экшена Request loading становится true', () => {
-        const initialIngredientsState = {
-            ingredients: [],
-            buns: [],
-            mains: [],
-            sauces: [],
-            currentIngredient: null,
-            loading: false,
-            error: null
-        };
         const requestAction = { type: fetchIngredients.pending.type };
         const newState = ingredientsReducer(initialIngredientsState, requestAction);
 
@@ -18,15 +19,6 @@ describe('проверка ingredientsReducer', () => {
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialIngredientsState = {
-            ingredients: [],
-            buns: [],
-            mains: [],
-            sauces: [],
-            currentIngredient: null,
-            loading: true,
-            error: null
-        };
         const mockPayload = [{
             "_id": "643d69a5c3f7b9001cfa0942",
             "name": "Соус Spicy-X",
@@ -61,15 +53,6 @@ describe('проверка ingredientsReducer', () => {
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialIngredientsState = {
-            ingredients: [],
-            buns: [],
-            mains: [],
-            sauces: [],
-            currentIngredient: null,
-            loading: true,
-            error: null
-        };
         const failedAction = { type: fetchIngredients.rejected.type, error: {message: 'Ошибка загрузки ингредиентов'} };
         const newState = ingredientsReducer(initialIngredientsState, failedAction);
 

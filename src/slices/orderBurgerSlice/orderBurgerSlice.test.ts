@@ -1,13 +1,14 @@
 import { fetchNewOrder, orderBurgerReducer } from "./orderBurgerSlice"
 
 describe('проверка orderBurgerReducer', () => {
+    const initialBurgerState = {
+        name: '',
+        burger: null,
+        loading: false,
+        error: ''
+    };
+
     it('при вызове экшена Request loading становится true', () => {
-        const initialBurgerState = {
-            name: '',
-            burger: null,
-            loading: false,
-            error: ''
-        };
         const requestAction = { type: fetchNewOrder.pending.type };
         const newState = orderBurgerReducer(initialBurgerState, requestAction);
 
@@ -15,12 +16,6 @@ describe('проверка orderBurgerReducer', () => {
     });
 
     it('при вызове экшена Success данные записываются в состояние а loading становится false', () => {
-        const initialBurgerState = {
-            name: '',
-            burger: null,
-            loading: true,
-            error: ''
-        };
         const mockPayload = {
             "name": "Spicy краторный бургер",
             "order": {
@@ -49,12 +44,6 @@ describe('проверка orderBurgerReducer', () => {
     });
 
     it('при вызове экшена Failed loading становится false, передается ошибка', () => {
-        const initialBurgerState = {
-            name: '',
-            burger: null,
-            loading: true,
-            error: ''
-        };
         const failedAction = { type: fetchNewOrder.rejected.type, error: {message: 'Ошибка загрузки заказа'} };
         const newState = orderBurgerReducer(initialBurgerState, failedAction);
 

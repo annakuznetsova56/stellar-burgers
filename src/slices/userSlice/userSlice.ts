@@ -137,11 +137,15 @@ export const userSlice = createSlice({
         .addCase(updateUser.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message || 'Ошибка обновления пользователя';
+          state.isAuthenticated = true;
+          state.isAuthChecked = true;
         })
        .addCase(updateUser.fulfilled, (state, action) => {
           state.user = action.payload.user;
           state.loading = false;
           state.error = '';
+          state.isAuthenticated = true;
+          state.isAuthChecked = true;
         })
 
         .addCase(logoutUser.pending, (state) => {
