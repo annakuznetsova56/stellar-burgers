@@ -76,6 +76,12 @@ describe('проверка модальных окон', () => {
         cy.get('[data-cy="modal-overlay"]').click({force: true});
         cy.get('[data-cy="modal"]').should('not.exist');
     });
+
+    it('модальное окно закрывается при клике на Escape', () => {
+        cy.get('[data-cy="modal"]').should('be.visible');
+        cy.get('body').type('{esc}');
+        cy.get('[data-cy="modal"]').should('not.exist');
+    });
 });
 
 describe('проверка оформления заказа', () => {
